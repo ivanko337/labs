@@ -1,0 +1,46 @@
+#include <iostream>
+#include <array>
+
+template<class InputIt>
+InputIt max_of_arr(InputIt first, InputIt last)
+{
+	InputIt max = first++;
+	for(; first != last; ++first)
+		if(first > max)
+			max = first;
+	return max;
+}
+
+template<class InputIt, class UnaryFunc>
+UnaryFunc for_each(InputIt first, InputIt last, UnaryFunc f)
+{
+	for(; first != last; ++first)
+		f(*first);
+
+	return f;
+}
+
+template<class InputType>
+void swap(InputType a, InputType b)
+{
+	InputType temp = *a;
+	*a = *b;
+	*	
+b = temp;
+}
+
+int main()
+{
+	std::array<int, 10> a;
+
+	std::cout << "vvedi massiv" << std::endl;
+	for_each(a.begin(), a.end(), [](int& v){ std::cin >> v; });
+
+	swap(a.begin(), max_of_arr(a.begin(), a.end()));
+
+	std::cout << "itogovi arr: " << std::endl;
+
+	for_each(a.begin(), a.end(), [](int v){ std::cout << v << std::endl; });
+
+	return 0;
+}
