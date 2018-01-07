@@ -48,14 +48,50 @@ std::pair<ForwardIt, ForwardIt>
 	return result;
 }
 
+template<class T>
+class SecondMinMax
+{
+public:
+	T min = 0;
+	T max = 0;
+	T s_min = 0;
+	T s_max = 0;
+
+	SecondMinMax(T val)
+	{
+		min = max = s_min = s_max = val;
+	}
+
+	void operator()(T val)
+	{
+		if (val < min)
+		{
+			s_min = min;
+			min = val;
+		}
+		else if (val < s_min)
+		{
+			s_min = val;
+		}
+		if (val > max)
+		{
+			s_max = max;
+			max = val;
+		}
+		else if (val > s_max)
+		{
+			s_max = val;
+		}
+	}
+};
+
 int main()
 {
 	std::array<int, 4> a;
 	std::cout << "введите массив: " << std::endl;
 	for_each(a.begin(), a.end(), [](int& v){ std::cin >> v; });
 
-	auto r = minmax_element(a.begin(), a.end(), [](int a, int b){ return a > b; });
-	std::cout << '\n' << *r.first << '\n' << *r.second << std::endl;
+	
 
 	return 0;
 }
