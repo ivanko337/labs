@@ -1,7 +1,8 @@
 #include <iostream>
-#include <array>
 #include <utility>
 #include <algorithm>
+#include <vector>
+#include <array>
 
 template<class InputIt, class UnaryFunc>
 UnaryFunc for_each(InputIt first, InputIt last, UnaryFunc f)
@@ -52,36 +53,16 @@ template<class T>
 class SecondMinMax
 {
 public:
-	T min = 0;
-	T max = 0;
-	T s_min = 0;
-	T s_max = 0;
-
-	SecondMinMax(T val)
-	{
-		min = max = s_min = s_max = val;
-	}
+	std::vector<T> values;
 
 	void operator()(T val)
 	{
-		if (val < min)
-		{
-			s_min = min;
-			min = val;
-		}
-		else if (val < s_min)
-		{
-			s_min = val;
-		}
-		if (val > max)
-		{
-			s_max = max;
-			max = val;
-		}
-		else if (val > s_max)
-		{
-			s_max = val;
-		}
+		values.push_back(val);
+	}
+
+	SecondMinMax(T first)
+	{
+		values.push_back(first);
 	}
 };
 
